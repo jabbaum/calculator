@@ -10,20 +10,37 @@ body {
     font-size: 1.5em;
     font-family: sans-serif;
     text-align: center;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: space-evenly;
+}
+.display {
+    margin-bottom: 7px;
 }
 .inputs {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    gap: 7px;
 }
 .calcButton {
     padding: 3px 10px;
     border-radius: 10px;
     background-color: pink;
-    align-self: flex-start;
+    flex-grow: 1;
 }
 .numbers {
     display: flex;
     flex-wrap: wrap;
     gap: 7px;
     max-width: 120px;
+}
+.operators {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    gap: 7px;
 }
