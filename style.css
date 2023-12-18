@@ -14,9 +14,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: space-evenly;
+    border-radius: 10px;
 }
 .display {
     margin-bottom: 7px;
+}
+#displayer {
+    border-radius: 10px;
+    border: 1px solid pink;
+    padding: 7px;
+    text-align: right;
 }
 .inputs {
     display: flex;
