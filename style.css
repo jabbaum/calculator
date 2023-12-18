@@ -1,0 +1,25 @@
+body {
+    display:flex; 
+    justify-content: center;
+}
+.calculator {
+    max-width: 975px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 3px;
+}
+.inputs {
+    display: flex;
+
+}
+.calcButton {
+    padding: 3px 10px;
+    border-radius: 10px;
+    background-color: pink;
+    align-self: flex-start;
+}
+.numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
