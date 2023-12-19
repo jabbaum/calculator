@@ -59,6 +59,10 @@ function handleOperator(e) {
     } else if (firstNumber && !operator && !secondNumber) {
         operator = operation;
         displayer.value = displayer.value.concat(operation);
+    } else if(firstNumber && operator && !secondNumber) {
+        handleEquals();
+        operator = operation;
+        displayer.value = displayer.value.concat(operator);
     } else if (operator && secondNumber && firstNumber) {
         displayer.value = operate(operator, firstNumber, secondNumber);
     }
