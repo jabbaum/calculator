@@ -4,6 +4,7 @@ let secondNumber = null;
 let displayer = document.querySelector('#displayer');
 let numbers = document.querySelector('.numbers');
 let opDiv = document.querySelector('.operators');
+let clear = document.querySelector('#clear');
 let button = null;
 let operators = ['plus', 'minus', 'multiply', 'divide'];
 let operatorsValue = ['+', '-', 'x', '/'];
@@ -27,8 +28,9 @@ function operate(operator, a, b) {
     if (operator === '+') {
         return add(a, b);
     } else if(operator === '-') {
-        subtract(a, b);
-    } else if(operator === '*') {
+        console.log('gets to minus, here is the second: ' + secondNumber);
+        return subtract(a, b);
+    } else if(operator === 'x') {
         return multiply(a, b);
     } else if(operator === '/') {
         return divide(a, b);
@@ -37,6 +39,12 @@ function operate(operator, a, b) {
     }
 }
 
+function handleClear(e) {
+    firstNumber = null;
+    secondNumber = null;
+    operator = null;
+    displayer.value = '';
+}
 function handleNumber(e) {
     displayer.value = displayer.value.concat(e.currentTarget.id);
 }
@@ -60,7 +68,7 @@ function handleEquals(e) {
     if(firstNumber && secondNumber && operator) {
         displayer.value = operate(operator, firstNumber, secondNumber);
     } else if(firstNumber && !secondNumber && operator) {
-        secondNumber = displayer.value.replace(/^.*\+(.*?)$/, '$1');
+        secondNumber = displayer.value.replace(/^.*[+\-x\/](.*?)$/, '$1');
         console.log(secondNumber);
         result = operate(operator, firstNumber, secondNumber);
         displayer.value = result;
@@ -97,3 +105,4 @@ let plus = document.querySelector('#plus');
 plus.addEventListener('click', handleOperator);
 let equals = document.querySelector('#equals');
 equals.addEventListener('click', handleEquals);
+clear.addEventListener('click', handleClear);
