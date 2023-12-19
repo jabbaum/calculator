@@ -3,7 +3,10 @@ let firstNumber = null;
 let secondNumber = null;
 let displayer = document.querySelector('#displayer');
 let numbers = document.querySelector('.numbers');
+let opDiv = document.querySelector('.operators');
 let button = null;
+let operators = ['plus', 'minus', 'multiply', 'divide'];
+let operatorsValue = ['+', '-', 'x', '/'];
 
 function add(a, b) {
     return a+b;
@@ -80,6 +83,15 @@ for(let i = 1; i <= 10; i++) {
     button.addEventListener("click", handleNumber);
     numbers.appendChild(button);
 }
+
+operators.forEach(op => {
+    let opButton = document.createElement('button');
+    opButton.id = op;
+    opButton.addEventListener('click', handleOperator);
+    opButton.textContent = operatorsValue[operators.indexOf(op)];
+    opDiv.appendChild(opButton);
+    opButton.className = 'calcButton';
+});
 
 let plus = document.querySelector('#plus');
 plus.addEventListener('click', handleOperator);
