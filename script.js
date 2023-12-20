@@ -9,6 +9,7 @@ let button = null;
 let operators = ['plus', 'minus', 'multiply', 'divide'];
 let operatorsValue = ['+', '-', 'x', '/'];
 let displayLock = 1;
+let dotLock = 1;
 
 function add(a, b) {
     return Math.round((a+b) * 100000000) / 100000000;
@@ -59,10 +60,16 @@ function handleClear(e) {
     displayer.value = '';
 }
 function handleNumber(e) {
+    console.log('Here is the dot lock: ' + dotLock + ' ' + e.currentTarget.value);
     if(displayLock<0) {
         return
-    } else if(e.currentTarget.value === '.') {
-        
+    } else if(e.currentTarget.id === '.' && dotLock > 0) {
+        console.log('this is a dot');
+        displayer.value = displayer.value.concat(e.currentTarget.id);
+        dotLock = -1;
+        return
+    } else if (dotLock < 0 && e.currentTarget.id === '.') {
+        return
     }
     displayer.value = displayer.value.concat(e.currentTarget.id);
 }
@@ -73,9 +80,8 @@ function handleOperator(e) {
     let operation = e.currentTarget.textContent;
     if(!firstNumber) {
         firstNumber = displayer.value;
-        console.log(firstNumber);
         operator = operation;
-        console.log(operation);
+        dotLock = 1;
         displayer.value = displayer.value.concat(operation);
     } else if (firstNumber && !operator && !secondNumber) {
         operator = operation;
@@ -92,6 +98,7 @@ function handleOperator(e) {
 function handleEquals(e) {
     if(firstNumber && secondNumber && operator) {
         displayer.value = operate(operator, firstNumber, secondNumber);
+        dotLock = 1;
     } else if(firstNumber && !secondNumber && operator) {
         secondNumber = displayer.value.replace(/^.*[+\-x\/](.*?)$/, '$1');
         console.log(secondNumber);
@@ -100,6 +107,7 @@ function handleEquals(e) {
         firstNumber = result;
         secondNumber = null;
         operator = null;
+        dotLock = 1;
     } 
 }
 
