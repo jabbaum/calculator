@@ -10,16 +10,16 @@ let operators = ['plus', 'minus', 'multiply', 'divide'];
 let operatorsValue = ['+', '-', 'x', '/'];
 
 function add(a, b) {
-    return a+b;
+    return Math.round((a+b) * 100000000) / 100000000;
 }
 function subtract(a, b) {
-    return a-b;
+    return Math.round((a-b) * 100000000) / 100000000;
 }
 function multiply(a, b) {
-    return a*b;
+    return Math.round((a*b) * 100000000) / 100000000;
 }
 function divide(a, b) {
-    return a/b;
+    return Math.round((a/b) * 100000000) / 100000000;
 }
 
 function operate(operator, a, b) {
