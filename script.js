@@ -83,7 +83,7 @@ function handleEquals(e) {
 }
 
 for(let i = 1; i <= 10; i++) {    
-    button = document.createElement('div');
+    button = document.createElement('button');
     if(i === 10) {
         button.id = '0';
         button.textContent = '0';

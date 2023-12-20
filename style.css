@@ -7,9 +7,9 @@ body {
     background-color: #000;
     color: #fff;
     border-radius: 3px;
-    font-size: 1.5em;
-    font-family: sans-serif;
     text-align: center;
+    font-size: 1.2em;
+    font-family: sans-serif;
     padding: 7px;
     display: flex;
     flex-direction: column;
@@ -50,4 +50,16 @@ body {
     align-items: stretch;
     flex-grow: 1;
     gap: 7px;
+}
+button {
+    font-size: 1.2em;
+    font-family: sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #41025a;
+}
+button:hover {
+    background-color: rgb(247, 218, 223);
+    border: 1px solid #a52bd5;
 }
