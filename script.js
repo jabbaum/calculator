@@ -61,6 +61,8 @@ function handleClear(e) {
 function handleNumber(e) {
     if(displayLock<0) {
         return
+    } else if(e.currentTarget.value === '.') {
+        
     }
     displayer.value = displayer.value.concat(e.currentTarget.id);
 }
@@ -101,12 +103,15 @@ function handleEquals(e) {
     } 
 }
 
-for(let i = 1; i <= 10; i++) {    
+for(let i = 1; i <= 11; i++) {    
     button = document.createElement('button');
     if(i === 10) {
         button.id = '0';
         button.textContent = '0';
-    } else {
+    } else if(i===11) {
+        button.id = '.';
+        button.textContent = '.';
+    }else {
         button.id = i;
         button.textContent = i;
     }
