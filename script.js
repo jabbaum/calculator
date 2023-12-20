@@ -8,6 +8,7 @@ let clear = document.querySelector('#clear');
 let button = null;
 let operators = ['plus', 'minus', 'multiply', 'divide'];
 let operatorsValue = ['+', '-', 'x', '/'];
+let displayLock = 1;
 
 function add(a, b) {
     return Math.round((a+b) * 100000000) / 100000000;
@@ -19,6 +20,18 @@ function multiply(a, b) {
     return Math.round((a*b) * 100000000) / 100000000;
 }
 function divide(a, b) {
+    if(b === 0) {
+        displayLock = -1;
+        setTimeout(() => {
+            displayer.value = "";
+            firstNumber = null;
+            secondNumber = null;
+            operator = null;
+            displayLock = 1;
+          }, "2000");
+        return 'Woops, cannot divide by 0';
+          
+    }
     return Math.round((a/b) * 100000000) / 100000000;
 }
 
@@ -46,9 +59,15 @@ function handleClear(e) {
     displayer.value = '';
 }
 function handleNumber(e) {
+    if(displayLock<0) {
+        return
+    }
     displayer.value = displayer.value.concat(e.currentTarget.id);
 }
 function handleOperator(e) {
+    if(displayLock<0) {
+        return
+    }
     let operation = e.currentTarget.textContent;
     if(!firstNumber) {
         firstNumber = displayer.value;
