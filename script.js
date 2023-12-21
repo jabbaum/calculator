@@ -77,15 +77,23 @@ function handleOperator(e) {
     if(displayLock<0) {
         return
     }
-    let operation = e.currentTarget.textContent;
+    if(e.currentTarget) {
+        let operation = e.currentTarget.textContent;
+    } else {
+        operation = e;
+    }
     if(!firstNumber) {
         firstNumber = displayer.value;
         operator = operation;
         dotLock = 1;
-        displayer.value = displayer.value.concat(operation);
+        if(e.currentTarget){
+            displayer.value = displayer.value.concat(operation);
+        }
     } else if (firstNumber && !operator && !secondNumber) {
         operator = operation;
-        displayer.value = displayer.value.concat(operation);
+        if(e.currentTarget) {
+            displayer.value = displayer.value.concat(operation);
+        }
     } else if(firstNumber && operator && !secondNumber) {
         handleEquals();
         operator = operation;
@@ -137,8 +145,30 @@ operators.forEach(op => {
     opButton.className = 'calcButton';
 });
 
+function handleInput(e) {
+    e.preventDefault();
+    input = e.key;
+    possibleInputs = /[0-9.]|[+\-*xX/]/;
+    currentDisplay = displayer.value;
+    console.log(e);
+    console.log(`Here is the input: ${input} and here is the match: ${input.match(possibleInputs)}`);
+    operatorsValue.forEach((op) => (op === input) ? handleOperator(op) : '');
+    if (currentDisplay.match(/[.]/)) {
+        if (input.match(/[.]/) && !firstNumber) {
+            return
+        } else if(input.match(/[.]/) && firstNumber && currentDisplay.match(/^(?=(.*\.){2})/)) {
+            dotLock = -1;
+            return
+        }
+    }
+    if(input.match(possibleInputs)) {
+        displayer.value = displayer.value.concat(input);
+    }
+}
+
 let plus = document.querySelector('#plus');
 plus.addEventListener('click', handleOperator);
 let equals = document.querySelector('#equals');
 equals.addEventListener('click', handleEquals);
 clear.addEventListener('click', handleClear);
+displayer.addEventListener('keydown', handleInput);
