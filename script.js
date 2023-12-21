@@ -148,7 +148,7 @@ operators.forEach(op => {
 function handleInput(e) {
     e.preventDefault();
     input = e.key;
-    possibleInputs = /[0-9.]|[+\-*xX/]/;
+    possibleInputs = /[0-9.]|[+\-xX/]/;
     currentDisplay = displayer.value;
     console.log(e);
     console.log(`Here is the input: ${input} and here is the match: ${input.match(possibleInputs)}`);
