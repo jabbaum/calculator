@@ -42,7 +42,6 @@ function operate(operator, a, b) {
     if (operator === '+') {
         return add(a, b);
     } else if(operator === '-') {
-        console.log('gets to minus, here is the second: ' + secondNumber);
         return subtract(a, b);
     } else if(operator === 'x') {
         return multiply(a, b);
@@ -60,11 +59,9 @@ function handleClear(e) {
     displayer.value = '';
 }
 function handleNumber(e) {
-    console.log('Here is the dot lock: ' + dotLock + ' ' + e.currentTarget.value);
     if(displayLock<0) {
         return
     } else if(e.currentTarget.id === '.' && dotLock > 0) {
-        console.log('this is a dot');
         displayer.value = displayer.value.concat(e.currentTarget.id);
         dotLock = -1;
         return
@@ -109,7 +106,6 @@ function handleEquals(e) {
         dotLock = 1;
     } else if(firstNumber && !secondNumber && operator) {
         secondNumber = displayer.value.replace(/^.*[+\-x\/](.*?)$/, '$1');
-        console.log(secondNumber);
         result = operate(operator, firstNumber, secondNumber);
         displayer.value = result;
         firstNumber = result;
@@ -117,6 +113,30 @@ function handleEquals(e) {
         operator = null;
         dotLock = 1;
     } 
+}
+
+function handleInput(e) {
+    e.preventDefault();
+    input = e.key;
+    possibleInputs = /[0-9.]|[+\-xX/]/;
+    currentDisplay = displayer.value;
+    operatorsValue.forEach((op) => (op === input) ? handleOperator(op) : '');
+    if (currentDisplay.match(/[.]/)) {
+        if (input.match(/[.]/) && !firstNumber) {
+            return
+        } else if(input.match(/[.]/) && firstNumber && currentDisplay.match(/^(?=(.*\.){2})/)) {
+            dotLock = -1;
+            return
+        }
+    }
+    if(input === 'Enter') {
+       handleEquals(e);
+    } else if(input === 'Backspace') {
+        operatorsValue.forEach((op) => (op === currentDisplay.slice(-1)) ? operator = null : op);
+        displayer.value = currentDisplay.slice(0, currentDisplay.length-1);
+    } else if(input.match(possibleInputs)) {
+        displayer.value = displayer.value.concat(input);
+    }
 }
 
 for(let i = 1; i <= 11; i++) {    
@@ -144,30 +164,6 @@ operators.forEach(op => {
     opDiv.appendChild(opButton);
     opButton.className = 'calcButton';
 });
-
-function handleInput(e) {
-    e.preventDefault();
-    input = e.key;
-    possibleInputs = /[0-9.]|[+\-xX/]/;
-    currentDisplay = displayer.value;
-    operatorsValue.forEach((op) => (op === input) ? handleOperator(op) : '');
-    if (currentDisplay.match(/[.]/)) {
-        if (input.match(/[.]/) && !firstNumber) {
-            return
-        } else if(input.match(/[.]/) && firstNumber && currentDisplay.match(/^(?=(.*\.){2})/)) {
-            dotLock = -1;
-            return
-        }
-    }
-    if(input === 'Enter') {
-       handleEquals(e);
-    } else if(input === 'Backspace') {
-        operatorsValue.forEach((op) => (op === currentDisplay.slice(-1)) ? operator = null : op);
-        displayer.value = currentDisplay.slice(0, currentDisplay.length-1);
-    } else if(input.match(possibleInputs)) {
-        displayer.value = displayer.value.concat(input);
-    }
-}
 
 let plus = document.querySelector('#plus');
 plus.addEventListener('click', handleOperator);
