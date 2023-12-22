@@ -150,8 +150,6 @@ function handleInput(e) {
     input = e.key;
     possibleInputs = /[0-9.]|[+\-xX/]/;
     currentDisplay = displayer.value;
-    console.log(e);
-    console.log(`Here is the input: ${input} and here is the match: ${input.match(possibleInputs)}`);
     operatorsValue.forEach((op) => (op === input) ? handleOperator(op) : '');
     if (currentDisplay.match(/[.]/)) {
         if (input.match(/[.]/) && !firstNumber) {
@@ -161,7 +159,12 @@ function handleInput(e) {
             return
         }
     }
-    if(input.match(possibleInputs)) {
+    if(input === 'Enter') {
+       handleEquals(e);
+    } else if(input === 'Backspace') {
+        operatorsValue.forEach((op) => (op === currentDisplay.slice(-1)) ? operator = null : op);
+        displayer.value = currentDisplay.slice(0, currentDisplay.length-1);
+    } else if(input.match(possibleInputs)) {
         displayer.value = displayer.value.concat(input);
     }
 }
