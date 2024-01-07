@@ -71,11 +71,12 @@ function handleNumber(e) {
     displayer.value = displayer.value.concat(e.currentTarget.id);
 }
 function handleOperator(e) {
+    let operation = null;
     if(displayLock<0) {
         return
     }
     if(e.currentTarget) {
-        let operation = e.currentTarget.textContent;
+        operation = e.currentTarget.textContent;
     } else {
         operation = e;
     }
