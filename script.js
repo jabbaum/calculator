@@ -110,10 +110,10 @@ function handleOperator(e) {
 }
 
 function handleEquals(e) {
-    if(firstNumber && secondNumber && operator) {
+    if((firstNumber || firstNumber === 0) && (secondNumber || secondNumber === 0) && operator) {
         displayer.value = operate(operator, firstNumber, secondNumber);
         dotLock = 1;
-    } else if(firstNumber && !secondNumber && operator) {
+    } else if((firstNumber || firstNumber === 0) && (!secondNumber || !secondNumber === 0) && operator) {
         secondNumber = displayer.value.replace(/^.*[+\-x\/](.*?)$/, '$1');
         result = operate(operator, firstNumber, secondNumber);
         displayer.value = result;
