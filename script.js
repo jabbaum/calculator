@@ -94,6 +94,8 @@ function handleOperator(e) {
         operator = operation;
         if(e.currentTarget) {
             displayer.value = displayer.value.concat(operation);
+        } else if(e) {
+            displayer.value = currentDisplay.concat(operation);
         }
     } else if(firstNumber && operator && !secondNumber) {
         console.log('no second number');
@@ -141,7 +143,7 @@ function handleInput(e) {
     } else if(input === 'Backspace') {
         operatorsValue.forEach((op) => (op === currentDisplay.slice(-1)) ? operator = null : op);
         displayer.value = currentDisplay.slice(0, currentDisplay.length-1);
-    } else if(input.match(possibleInputs)) {
+    } else if(input.match(possibleInputs) && !operator) {
         displayer.value = displayer.value.concat(input);
     }
 }
