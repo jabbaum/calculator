@@ -56,7 +56,8 @@ function handleClear(e) {
     firstNumber = null;
     secondNumber = null;
     operator = null;
-    displayer.value = '';
+    currentDisplay =  '';
+    displayer.value = currentDisplay;
 }
 function handleNumber(e) {
     if(displayLock<0) {
@@ -81,6 +82,7 @@ function handleOperator(e) {
         operation = e;
     }
     if(!firstNumber) {
+        console.log('no first');
         firstNumber = displayer.value;
         operator = operation;
         dotLock = 1;
@@ -88,15 +90,19 @@ function handleOperator(e) {
             displayer.value = displayer.value.concat(operation);
         }
     } else if (firstNumber && !operator && !secondNumber) {
+        console.log('no op and no second');
         operator = operation;
         if(e.currentTarget) {
             displayer.value = displayer.value.concat(operation);
         }
     } else if(firstNumber && operator && !secondNumber) {
+        console.log('no second number');
         handleEquals();
         operator = operation;
         displayer.value = displayer.value.concat(operator);
     } else if (operator && secondNumber && firstNumber) {
+        console.log('all needed for operate')
+        console.log(operate(operator, firstNumber, secondNumber));
         displayer.value = operate(operator, firstNumber, secondNumber);
     }
 }
