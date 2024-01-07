@@ -89,7 +89,7 @@ function handleOperator(e) {
         if(e.currentTarget){
             displayer.value = displayer.value.concat(operation);
         }
-    } else if ((firstNumber || firstNumber === 0) && !operator && !secondNumber) {
+    } else if ((firstNumber || firstNumber === 0) && !operator && (!secondNumber || !secondNumber === 0)) {
         console.log('no op and no second');
         operator = operation;
         if(e.currentTarget) {
@@ -97,12 +97,12 @@ function handleOperator(e) {
         } else if(e) {
             displayer.value = currentDisplay.concat(operation);
         }
-    } else if((firstNumber || firstNumber === 0) && operator && !secondNumber) {
+    } else if((firstNumber || firstNumber === 0) && operator && (!secondNumber || !secondNumber === 0)) {
         console.log('no second number');
         handleEquals();
         operator = operation;
         displayer.value = displayer.value.concat(operator);
-    } else if (operator && secondNumber && (firstNumber || firstNumber === 0)) {
+    } else if (operator && (secondNumber || secondNumber === 0) && (firstNumber || firstNumber === 0)) {
         console.log('all needed for operate')
         console.log(operate(operator, firstNumber, secondNumber));
         displayer.value = operate(operator, firstNumber, secondNumber);
